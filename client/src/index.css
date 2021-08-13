@@ -42,7 +42,7 @@ ul {
 }
 
 .tile.selected.dark {
-  background: rgb(255, 80, 80);
+  background: rgb(255, 155, 155);
 }
 
 .square:focus {

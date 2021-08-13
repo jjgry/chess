@@ -45,29 +45,26 @@ export function App() {
   };
 
   const handleClick = (row, col) => {
+    const [startRow, startCol] = selection;
     const pieceAtClick = tiles[row][col];
-    if (selection[0] === -1 && selection[1] === -1 && pieceAtClick) {
+    if (startRow === -1 && startCol === -1 && pieceAtClick) {
       // Set selection
       const newSelected = set2D(selected, row, col, true);
       setSelected(newSelected);
       setSelection([row, col]);
-      console.log("set selection");
-    } else if (selection[0] !== -1 && selection[1] !== -1) {
-      const pieceAtSelection = tiles[selection[0]][selection[1]];
-      if (selection[0] === row && selection[1] === col) {
+    } else if (startRow !== -1 && startCol !== -1) {
+      const pieceAtSelection = tiles[startRow][startCol];
+      if (startRow === row && startCol === col) {
         // Remove selection
         const newSelected = set2D(selected, row, col, false);
         setSelected(newSelected);
         setSelection([-1, -1]);
-        console.log("remove selection");
-      } else if (tiles[selection[0]][selection[1]] !== "") {
+      } else if (tiles[startRow][startCol] !== "") {
         // Move piece
-        movePiece(selection[0], selection[1], row, col);
-        const newSelected = set2D(selected, selection[0], selection[1], false);
+        movePiece(startRow, startCol, row, col);
+        const newSelected = set2D(selected, startRow, startCol, false);
         setSelected(newSelected);
         setSelection([-1, -1]);
-        console.log("move piece");
-        console.log(newSelected);
       }
     }
   };
