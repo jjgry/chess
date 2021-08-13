@@ -13,6 +13,9 @@ export function App() {
     ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"],
   ];
 
+  const whitePieces = ["♙", "♖", "♘", "♗", "♕", "♔"];
+  const blackPieces = ["♟︎", "♜", "♞", "♝", "♛", "♚"];
+
   const [tiles, setTiles] = useState(initialPosition);
 
   const [selected, setSelected] = useState(
@@ -20,6 +23,8 @@ export function App() {
   );
 
   const [selection, setSelection] = useState([-1, -1]);
+
+  const [whiteIsNext, setWhiteIsNext] = useState(true);
 
   const copy2D = (array) => {
     let result = [];
@@ -47,11 +52,17 @@ export function App() {
   const handleClick = (row, col) => {
     const [startRow, startCol] = selection;
     const pieceAtClick = tiles[row][col];
-    if (startRow === -1 && startCol === -1 && pieceAtClick) {
+    if (startRow === -1 && startCol === -1) {
       // Set selection
-      const newSelected = set2D(selected, row, col, true);
-      setSelected(newSelected);
-      setSelection([row, col]);
+      const canSelect =
+        pieceAtClick && whiteIsNext
+          ? whitePieces.includes(pieceAtClick)
+          : blackPieces.includes(pieceAtClick);
+      if (canSelect) {
+        const newSelected = set2D(selected, row, col, true);
+        setSelected(newSelected);
+        setSelection([row, col]);
+      }
     } else if (startRow !== -1 && startCol !== -1) {
       const pieceAtSelection = tiles[startRow][startCol];
       if (startRow === row && startCol === col) {
@@ -59,12 +70,15 @@ export function App() {
         const newSelected = set2D(selected, row, col, false);
         setSelected(newSelected);
         setSelection([-1, -1]);
-      } else if (tiles[startRow][startCol] !== "") {
+      } else if (pieceAtSelection !== "") {
         // Move piece
         movePiece(startRow, startCol, row, col);
         const newSelected = set2D(selected, startRow, startCol, false);
         setSelected(newSelected);
         setSelection([-1, -1]);
+        setWhiteIsNext(!whiteIsNext);
+      } else {
+        console.log("here");
       }
     }
   };
@@ -77,6 +91,9 @@ export function App() {
           selected={selected}
           onClick={(row, col) => handleClick(row, col)}
         />
+      </div>
+      <div className="game-info">
+        <div>{whiteIsNext ? "White to move" : "Black to move"}</div>
       </div>
     </div>
   );
