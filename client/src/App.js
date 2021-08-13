@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Board } from "./components/Board";
+import { Counter } from "./features/counter/counter";
 
 export function App() {
   const initialPosition = [
@@ -91,6 +92,7 @@ export function App() {
           selected={selected}
           onClick={(row, col) => handleClick(row, col)}
         />
+        <Counter />
       </div>
       <div className="game-info">
         <div>{whiteIsNext ? "White to move" : "Black to move"}</div>
