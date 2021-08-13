@@ -9,6 +9,8 @@ export function Board(props) {
         onClick={() => props.onClick(row, col)}
         selected={props.selected[row][col]}
         dark={row % 2 ? (col - 1) % 2 : col % 2}
+        row={row}
+        col={col}
       />
     );
   };
