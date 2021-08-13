@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { handleClick } from "../reducers/gameSlice";
-import { Board } from "./Board";
+import { Board } from "../components/Board";
 
 export function Game() {
   const tiles = useSelector((state) => state.game.tiles);
