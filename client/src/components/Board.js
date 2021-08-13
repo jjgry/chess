@@ -4,6 +4,7 @@ export function Board(props) {
   const renderTile = (row, col) => {
     return (
       <Tile
+        key={8 * row + col}
         value={props.tiles[row][col]}
         onClick={() => props.onClick(row, col)}
         selected={props.selected[row][col]}
@@ -20,7 +21,11 @@ export function Board(props) {
       for (let col = 0; col < 8; col++) {
         rowTiles.push(renderTile(row, col));
       }
-      board[row] = <div className="board-row">{rowTiles}</div>;
+      board[row] = (
+        <div key={1000 * row} className="board-row">
+          {rowTiles}
+        </div>
+      );
     }
     return board;
   };
