@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
+import { handleClick } from "../reducers/gameSlice";
 
 export function Tile(props) {
+  const value = useSelector((state) => state.game.tiles[props.row][props.col]);
   const selected = useSelector(
     (state) => state.game.selected[props.row][props.col]
   );
@@ -11,9 +13,9 @@ export function Tile(props) {
       className={
         "tile" + (selected ? " selected" : "") + (props.dark ? " dark" : "")
       }
-      onClick={props.onClick}
+      onClick={() => dispatch(handleClick({ row: props.row, col: props.col }))}
     >
-      {props.value}
+      {value}
     </button>
   );
 }
