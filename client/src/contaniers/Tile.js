@@ -1,5 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectTile, selectSelected } from "../reducers/gameSlice";
+import {
+  selectTile,
+  selectSelected,
+  selectHighlightedStatus,
+} from "../reducers/gameSlice";
 import { clickSelected, clickUnselected } from "../actions";
 import styles from "./Tile.module.css";
 
@@ -8,6 +12,9 @@ const Tile = (props) => {
   const selected = useSelector((state) =>
     selectSelected(state, props.row, props.col)
   );
+  const highlighted = useSelector((state) =>
+    selectHighlightedStatus(state, props.row, props.col)
+  );
   const dispatch = useDispatch();
 
   const getTileClassName = () => {
@@ -15,6 +22,9 @@ const Tile = (props) => {
 
     if (selected) {
       className.push(styles.selected);
+    }
+    if (highlighted) {
+      className.push(styles.highlighted);
     }
     if (props.dark) {
       className.push(styles.dark);

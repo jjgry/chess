@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getLegalMoves } from "../utils/legalMoves";
 
 export const gameSlice = createSlice({
   name: "game",
@@ -16,6 +17,7 @@ export const gameSlice = createSlice({
     selected: new Array(8).fill(new Array(8).fill(false)),
     selection: [-1, -1],
     whiteIsNext: true,
+    highlightedMoves: new Array(8).fill(new Array(8).fill(false)),
   },
   reducers: {
     clickUnselected: (state, action) => {
@@ -33,6 +35,11 @@ export const gameSlice = createSlice({
         const newSelected = set2D(state.selected, clickedRow, clickedCol, true);
         state.selected = newSelected;
         state.selection = [clickedRow, clickedCol];
+        state.highlightedMoves = getLegalMoves(
+          copy2D(state.tiles),
+          clickedRow,
+          clickedCol
+        );
       } else if (selectedRow !== -1 && selectedCol !== -1) {
         const pieceAtSelection = state.tiles[selectedRow][selectedCol];
         if (pieceAtSelection !== "") {
@@ -75,6 +82,7 @@ export const gameSlice = createSlice({
         );
         state.selected = newSelected;
         state.selection = [-1, -1];
+        state.highlightedMoves = new Array(8).fill(new Array(8).fill(false));
       }
     },
   },
@@ -110,3 +118,6 @@ export const selectSelected = (state, row, col) =>
   state.game.selected[row][col];
 
 export const selectWhiteIsNext = (state) => state.game.whiteIsNext;
+
+export const selectHighlightedStatus = (state, row, col) =>
+  state.game.highlightedMoves[row][col];

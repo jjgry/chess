@@ -17,3 +17,7 @@
 .selected {
   background: rgb(255, 155, 155);
 }
+
+.highlighted {
+  background: rgb(255, 190, 116);
+}
