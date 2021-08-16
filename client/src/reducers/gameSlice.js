@@ -19,10 +19,10 @@ export const gameSlice = createSlice({
   },
   reducers: {
     clickUnselected: (state, action) => {
-      const row = action.payload.row;
-      const col = action.payload.col;
-      const pieceAtClick = state.tiles[row][col];
-      const [startRow, startCol] = state.selection;
+      const clickedRow = action.payload.row;
+      const clickedCol = action.payload.col;
+      const pieceAtClick = state.tiles[clickedRow][clickedCol];
+      const [selectedRow, selectedCol] = state.selection;
 
       const canSelect =
         pieceAtClick && state.whiteIsNext
@@ -30,18 +30,28 @@ export const gameSlice = createSlice({
           : blackPieces.includes(pieceAtClick);
       if (canSelect) {
         // Set selection
-        const newSelected = set2D(state.selected, row, col, true);
+        const newSelected = set2D(state.selected, clickedRow, clickedCol, true);
         state.selected = newSelected;
-        state.selection = [row, col];
-      } else if (startRow !== -1 && startCol !== -1) {
-        const pieceAtSelection = state.tiles[startRow][startCol];
+        state.selection = [clickedRow, clickedCol];
+      } else if (selectedRow !== -1 && selectedCol !== -1) {
+        const pieceAtSelection = state.tiles[selectedRow][selectedCol];
         if (pieceAtSelection !== "") {
           // Move piece
-          let newBoard = set2D(state.tiles, row, col, pieceAtSelection);
-          newBoard = set2D(newBoard, startRow, startCol, "");
+          let newBoard = set2D(
+            state.tiles,
+            clickedRow,
+            clickedCol,
+            pieceAtSelection
+          );
+          newBoard = set2D(newBoard, selectedRow, selectedCol, "");
           state.tiles = newBoard;
 
-          const newSelected = set2D(state.selected, startRow, startCol, false);
+          const newSelected = set2D(
+            state.selected,
+            selectedRow,
+            selectedCol,
+            false
+          );
           state.selected = newSelected;
           state.selection = [-1, -1];
           state.whiteIsNext = !state.whiteIsNext;
@@ -51,13 +61,18 @@ export const gameSlice = createSlice({
       }
     },
     clickSelected: (state, action) => {
-      const row = action.payload.row;
-      const col = action.payload.col;
-      const [startRow, startCol] = state.selection;
+      const clickedRow = action.payload.row;
+      const clickedCol = action.payload.col;
+      const [selectedRow, selectedCol] = state.selection;
 
-      if (startRow === row && startCol === col) {
+      if (selectedRow === clickedRow && selectedCol === clickedCol) {
         // Remove selection
-        const newSelected = set2D(state.selected, row, col, false);
+        const newSelected = set2D(
+          state.selected,
+          clickedRow,
+          clickedCol,
+          false
+        );
         state.selected = newSelected;
         state.selection = [-1, -1];
       }
