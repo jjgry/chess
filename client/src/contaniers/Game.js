@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Board } from "../components/Board";
+import Board from "../components/Board";
 
-export function Game() {
+const Game = () => {
   const whiteIsNext = useSelector((state) => state.game.whiteIsNext);
 
   return (
@@ -15,4 +15,6 @@ export function Game() {
       </div>
     </div>
   );
-}
+};
+
+export default Game;

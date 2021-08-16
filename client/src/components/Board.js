@@ -1,6 +1,6 @@
-import { Tile } from "./Tile";
+import Tile from "./Tile";
 
-export function Board(props) {
+const Board = () => {
   const renderTile = (row, col) => {
     return (
       <Tile
@@ -30,4 +30,6 @@ export function Board(props) {
   };
 
   return <div>{getBoardTiles()}</div>;
-}
+};
+
+export default Board;
