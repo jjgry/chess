@@ -14,16 +14,18 @@ const Page = () => {
         <Game />
       </div>
       <div className={styles.contentleft}>
-        <button href="./">Home</button>
-        <button href="./about">About</button>
-        <button href="./chess">Chess</button>
-        <button href="./games">Other cool games</button>
+        <button onClick={() => window.open("./", "_self")}>Home</button>
+        <button onClick={() => window.open("./about", "_self")}>About</button>
+        <button onClick={() => window.open("./chess", "_self")}>Chess</button>
+        <button onClick={() => window.open("./games", "_self")}>
+          Other cool games
+        </button>
       </div>
       <div className={styles.contentright}>
         <ul>
           <li>Check out this awesome game!</li>
           <li>
-            <img href="./" alt="image.jpg" />
+            <img href="./" alt="advert.jpg" />
             <p>
               you won't <i>believe</i> this one trick to longer life!
             </p>
