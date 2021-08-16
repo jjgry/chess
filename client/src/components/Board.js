@@ -1,14 +1,13 @@
-import { Tile } from "./Tile";
+import Tile from "./Tile";
 
-export function Board(props) {
+const Board = () => {
   const renderTile = (row, col) => {
     return (
       <Tile
         key={8 * row + col}
-        value={props.tiles[row][col]}
-        onClick={() => props.onClick(row, col)}
-        selected={props.selected[row][col]}
         dark={row % 2 ? (col - 1) % 2 : col % 2}
+        row={row}
+        col={col}
       />
     );
   };
@@ -31,4 +30,6 @@ export function Board(props) {
   };
 
   return <div>{getBoardTiles()}</div>;
-}
+};
+
+export default Board;
