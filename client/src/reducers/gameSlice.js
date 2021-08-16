@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getLegalMoves, newLegalMovesArray } from "../utils/legalMoves";
+import { getLegalMoves, newLegalMovesArray } from "../utils/moves/legalMoves";
 
 export const gameSlice = createSlice({
   name: "game",
