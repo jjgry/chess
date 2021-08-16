@@ -9,19 +9,20 @@ const Tile = (props) => {
   );
   const dispatch = useDispatch();
 
+  const getTileClassName = () => {
+    return "tile" + (selected ? " selected" : "") + (props.dark ? " dark" : "");
+  };
+
+  const getOnClickAction = () => {
+    if (selected) {
+      return () => dispatch(clickSelected(props.row, props.col));
+    } else {
+      return () => dispatch(clickUnselected(props.row, props.col));
+    }
+  };
+
   return (
-    <button
-      className={
-        "tile" + (selected ? " selected" : "") + (props.dark ? " dark" : "")
-      }
-      onClick={() => {
-        if (selected) {
-          dispatch(clickSelected(props.row, props.col));
-        } else {
-          dispatch(clickUnselected(props.row, props.col));
-        }
-      }}
-    >
+    <button className={getTileClassName()} onClick={getOnClickAction()}>
       {value}
     </button>
   );
