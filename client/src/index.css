@@ -9,18 +9,3 @@ ol,
 ul {
   padding-left: 30px;
 }
-
-.board {
-  border: 3px solid rgb(250, 231, 146);
-  display: grid;
-  grid-template-rows: repeat(8, 50px);
-  grid-template-columns: repeat(8, 50px);
-  width: fit-content;
-  margin: 0px auto;
-}
-
-.game-info {
-  margin: auto;
-  margin-top: 10px;
-  width: fit-content;
-}

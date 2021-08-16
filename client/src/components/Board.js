@@ -1,4 +1,5 @@
 import Tile from "../contaniers/Tile";
+import styles from "./Board.module.css";
 
 const Board = () => {
   const renderTile = (row, col) => {
@@ -22,7 +23,7 @@ const Board = () => {
     return board;
   };
 
-  return <div className="board">{getBoardTiles()}</div>;
+  return <div className={styles.board}>{getBoardTiles()}</div>;
 };
 
 export default Board;
