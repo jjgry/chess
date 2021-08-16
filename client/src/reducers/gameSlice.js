@@ -28,7 +28,7 @@ export const gameSlice = createSlice({
         pieceAtClick && state.whiteIsNext
           ? whitePieces.includes(pieceAtClick)
           : blackPieces.includes(pieceAtClick);
-      if (canSelect) {
+      if (selectedRow === -1 && selectedCol === -1 && canSelect) {
         // Set selection
         const newSelected = set2D(state.selected, clickedRow, clickedCol, true);
         state.selected = newSelected;
