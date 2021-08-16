@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getLegalMoves } from "../utils/legalMoves";
+import { getLegalMoves, newLegalMovesArray } from "../utils/legalMoves";
 
 export const gameSlice = createSlice({
   name: "game",
@@ -17,7 +17,7 @@ export const gameSlice = createSlice({
     selected: new Array(8).fill(new Array(8).fill(false)),
     selection: [-1, -1],
     whiteIsNext: true,
-    highlightedMoves: new Array(8).fill(new Array(8).fill(false)),
+    highlightedMoves: newLegalMovesArray(),
   },
   reducers: {
     clickUnselected: (state, action) => {
@@ -62,6 +62,7 @@ export const gameSlice = createSlice({
           state.selected = newSelected;
           state.selection = [-1, -1];
           state.whiteIsNext = !state.whiteIsNext;
+          state.highlightedMoves = newLegalMovesArray();
         } else {
           console.log("here");
         }
