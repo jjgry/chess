@@ -11,6 +11,18 @@ const Page = () => {
         <h1>JJ's Bad 90s Chess</h1>
       </div>
       <div className={styles.content}>
+        <p>
+          Do you like <span className={styles.randomWhiteText}>chess</span>?
+          You'll{" "}
+          <i>
+            <b>love</b>
+          </i>{" "}
+          the game you see below!{" "}
+        </p>
+        <p>
+          Play bad 90s chess today on this web app made with{" "}
+          <a href="https://create-react-app.dev/">create-react-app</a>
+        </p>
         <Game />
       </div>
       <div className={styles.contentleft}>

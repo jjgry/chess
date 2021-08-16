@@ -51,6 +51,12 @@
   margin: 0;
 }
 
+.randomWhiteText {
+  color: white;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .page {
   display: grid;
   grid-template-rows: auto auto auto;
