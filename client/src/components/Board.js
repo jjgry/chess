@@ -1,4 +1,4 @@
-import Tile from "./Tile";
+import Tile from "../contaniers/Tile";
 
 const Board = () => {
   const renderTile = (row, col) => {
