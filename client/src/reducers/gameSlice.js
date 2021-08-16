@@ -83,3 +83,10 @@ const set2D = (array, row, col, value) => {
 export const { handleClick } = gameSlice.actions;
 
 export default gameSlice.reducer;
+
+export const selectTile = (state, row, col) => state.game.tiles[row][col];
+
+export const selectSelected = (state, row, col) =>
+  state.game.selected[row][col];
+
+export const selectWhiteIsNext = (state) => state.game.whiteIsNext;

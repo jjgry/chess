@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { selectWhiteIsNext } from "../reducers/gameSlice";
 import Board from "../components/Board";
 
 const Game = () => {
-  const whiteIsNext = useSelector((state) => state.game.whiteIsNext);
+  const whiteIsNext = useSelector(selectWhiteIsNext);
 
   return (
     <div className="game">
