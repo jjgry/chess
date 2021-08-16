@@ -14,17 +14,10 @@ const Board = () => {
 
   const getBoardTiles = () => {
     let board = [];
-    let rowTiles;
     for (let row = 0; row < 8; row++) {
-      rowTiles = [];
       for (let col = 0; col < 8; col++) {
-        rowTiles.push(renderTile(row, col));
+        board.push(renderTile(row, col));
       }
-      board[row] = (
-        <div key={1000 * row} className="board-row">
-          {rowTiles}
-        </div>
-      );
     }
     return board;
   };

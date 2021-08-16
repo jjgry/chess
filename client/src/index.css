@@ -10,19 +10,9 @@ ul {
 
 .board {
   border: 3px solid black;
-  display: flex;
-  flex-direction: column;
-}
-
-.board-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
+  display: grid;
+  grid-template-rows: repeat(8, 34px);
+  grid-template-columns: repeat(8, 34px);
 }
 
 .status {
@@ -34,14 +24,10 @@ ul {
   border: none;
   float: left;
   font-size: 24px;
-  font-weight: bold;
   line-height: 34px;
-  height: 34px;
   padding: 0;
   text-align: center;
-  width: 34px;
   border-radius: 0;
-  flex-grow: 1;
 }
 
 .tile.selected {
