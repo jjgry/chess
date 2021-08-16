@@ -29,7 +29,7 @@ const Board = () => {
     return board;
   };
 
-  return <div>{getBoardTiles()}</div>;
+  return <div className="board">{getBoardTiles()}</div>;
 };
 
 export default Board;
