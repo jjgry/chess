@@ -1,11 +1,12 @@
 import Game from "../contaniers/Game";
 import styles from "./Page.module.css";
+import logo from "./chess.png";
 
 const Page = () => {
   return (
     <div className={styles.page}>
       <div className={styles.logo}>
-        <p>♛chess</p>
+        <img className={styles.logoimg} src={logo} alt="chess logo" />
       </div>
       <div className={styles.header}>
         <h1>JJ's Bad 90s Chess</h1>

@@ -67,6 +67,11 @@
     "footerleft      footer      footer  footer       footerright";
 }
 
+.logoimg {
+  height: 80px;
+  padding: 10px;
+}
+
 a {
   color: red;
 }
