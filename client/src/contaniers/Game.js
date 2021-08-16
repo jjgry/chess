@@ -6,13 +6,17 @@ import Board from "../components/Board";
 const Game = () => {
   const whiteIsNext = useSelector(selectWhiteIsNext);
 
+  const getStatusMessage = () => {
+    return whiteIsNext ? "White to move" : "Black to move";
+  };
+
   return (
     <div className="game">
       <div className="game-board">
         <Board />
       </div>
       <div className="game-info">
-        <div>{whiteIsNext ? "White to move" : "Black to move"}</div>
+        <div>{getStatusMessage()}</div>
       </div>
     </div>
   );
