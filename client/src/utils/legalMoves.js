@@ -37,6 +37,10 @@ export const getLegalMoves = (tiles, row, col) => {
     case BLACK_KNIGHT:
       legalMoves = getKnightMoves(tiles, row, col);
       break;
+    case WHITE_PAWN:
+    case BLACK_PAWN:
+      legalMoves = getPawnMoves(tiles, row, col);
+      break;
     default:
       legalMoves = newLegalMovesArray();
       console.log("unsupported piece: " + piece);
@@ -145,6 +149,28 @@ const getKnightMoves = (tiles, row, col) => {
       ) {
         legalMoves = setLegalMove(legalMoves, i, j);
       }
+    }
+  }
+  return legalMoves;
+};
+
+const getPawnMoves = (tiles, row, col) => {
+  let legalMoves = newLegalMovesArray();
+  const piece = tiles[row][col];
+
+  if (piece === WHITE_PAWN) {
+    if (row === 6) {
+      legalMoves = setLegalMove(legalMoves, 4, col);
+    }
+    if (row !== 0) {
+      legalMoves = setLegalMove(legalMoves, row - 1, col);
+    }
+  } else {
+    if (row === 1) {
+      legalMoves = setLegalMove(legalMoves, 3, col);
+    }
+    if (row !== 7) {
+      legalMoves = setLegalMove(legalMoves, row + 1, col);
     }
   }
   return legalMoves;
