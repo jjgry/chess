@@ -1,4 +1,4 @@
-import { setLegalMove, newLegalMovesArray } from "./legalMoves";
+import { setLegalMove, newLegalMovesArray, canTake } from "./legalMoves";
 
 const getKingMoves = (tiles, row, col) => {
   let legalMoves = newLegalMovesArray();
@@ -7,7 +7,11 @@ const getKingMoves = (tiles, row, col) => {
       if (row === i && col === j) {
         continue;
       }
-      legalMoves = setLegalMove(legalMoves, i, j);
+      const piece = tiles[row][col];
+      const pieceAtNewPos = tiles[i][j];
+      if (canTake(piece, pieceAtNewPos)) {
+        legalMoves = setLegalMove(legalMoves, i, j);
+      }
     }
   }
   return legalMoves;
