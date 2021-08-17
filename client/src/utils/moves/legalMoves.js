@@ -147,7 +147,6 @@ export const diagonalSearch = (legalMoves, tiles, row, col) => {
   // North-west search
   if (row > 0 && col > 0) {
     const maxSearchDistance = Math.min(row, col);
-    console.log(maxSearchDistance);
     for (
       let searchDistance = 1;
       searchDistance <= maxSearchDistance;

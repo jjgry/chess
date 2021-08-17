@@ -74,8 +74,6 @@ export const gameSlice = createSlice({
           state.selection = [-1, -1];
           state.whiteIsNext = !state.whiteIsNext;
           state.highlightedMoves = newLegalMovesArray();
-        } else {
-          console.log("here");
         }
       }
     },
