@@ -3,9 +3,9 @@ import * as moves from "./pieces";
 import { copy2D } from "../array2d";
 import { isWhitePiece } from "../pieces";
 
-export const getLegalMoves = (tiles, row, col) => {
+export const getLegalMoves = (tiles: string[][], row: number, col: number) => {
   const piece = tiles[row][col];
-  let legalMoves;
+  let legalMoves: boolean[][];
 
   switch (piece) {
     case pieces.WHITE_BISHOP:
@@ -39,11 +39,15 @@ export const getLegalMoves = (tiles, row, col) => {
   return legalMoves;
 };
 
-export const isALegalMove = (legalMoves, row, col) => {
+export const isALegalMove = (
+  legalMoves: boolean[][],
+  row: number,
+  col: number
+) => {
   return legalMoves[row][col];
 };
 
-export const setLegalMove = (legalMoves, i, j) => {
+export const setLegalMove = (legalMoves: boolean[][], i: number, j: number) => {
   let arrayCopy = copy2D(legalMoves);
   let newRow = arrayCopy[i];
   newRow.splice(j, 1, true);
@@ -55,14 +59,19 @@ export const newLegalMovesArray = () => {
   return new Array(8).fill(new Array(8).fill(false));
 };
 
-export const canTake = (taker, takee) => {
+export const canTake = (taker: string, takee: string) => {
   if (taker === "" || takee === "") {
     return false;
   }
   return isWhitePiece(taker) !== isWhitePiece(takee);
 };
 
-export const rankAndFileSearch = (legalMoves, tiles, row, col) => {
+export const rankAndFileSearch = (
+  legalMoves: boolean[][],
+  tiles: string[][],
+  row: number,
+  col: number
+) => {
   const piece = tiles[row][col];
   // South search
   if (row < 8) {
@@ -123,7 +132,12 @@ export const rankAndFileSearch = (legalMoves, tiles, row, col) => {
   return legalMoves;
 };
 
-export const diagonalSearch = (legalMoves, tiles, row, col) => {
+export const diagonalSearch = (
+  legalMoves: boolean[][],
+  tiles: string[][],
+  row: number,
+  col: number
+) => {
   const piece = tiles[row][col];
 
   // South-east search
