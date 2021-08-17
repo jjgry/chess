@@ -19,7 +19,7 @@ const getKnightMoves = (tiles: string[][], row: number, col: number) => {
   return legalMoves;
 };
 
-const isTwoAndOne = (rowDiff, colDiff) => {
+const isTwoAndOne = (rowDiff: number, colDiff: number) => {
   return (rowDiff === 2 && colDiff === 1) || (rowDiff === 1 && colDiff === 2);
 };
 export default getKnightMoves;
