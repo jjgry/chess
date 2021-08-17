@@ -3,14 +3,8 @@ import styles from "./Board.module.css";
 
 const Board = () => {
   const renderTile = (row: number, col: number) => {
-    return (
-      <Tile
-        key={8 * row + col}
-        dark={row % 2 ? (col - 1) % 2 : col % 2}
-        row={row}
-        col={col}
-      />
-    );
+    const isDark = !!(row % 2 ? (col - 1) % 2 : col % 2);
+    return <Tile key={8 * row + col} dark={isDark} row={row} col={col} />;
   };
 
   const getBoardTiles = () => {

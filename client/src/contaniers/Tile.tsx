@@ -7,7 +7,7 @@ import { clickSelected, clickUnselected } from "../actions";
 import styles from "./Tile.module.css";
 import { useAppDispatch, useAppSelector } from "../reducers/hooks";
 
-const Tile = (props) => {
+const Tile = (props: { row: number; col: number; dark: boolean }) => {
   const value = useAppSelector((state) =>
     selectTile(state, props.row, props.col)
   );
