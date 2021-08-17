@@ -35,6 +35,7 @@ const Page = () => {
         </button>
       </div>
       <div className={styles.contentright}>
+        <h2>Welcome to my website!</h2>
         <ul>
           <li>Check out this awesome game!</li>
           <li>

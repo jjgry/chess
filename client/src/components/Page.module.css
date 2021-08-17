@@ -57,6 +57,14 @@
   text-decoration: underline;
 }
 
+h2 {
+  color: red;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  padding: 5px;
+  text-align: center;
+  background: white;
+}
+
 .page {
   display: grid;
   grid-template-rows: auto auto auto;
