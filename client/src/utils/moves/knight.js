@@ -1,4 +1,4 @@
-import { setLegalMove, newLegalMovesArray } from "./legalMoves";
+import { setLegalMove, newLegalMovesArray, canTake } from "./legalMoves";
 
 const getKnightMoves = (tiles, row, col) => {
   let legalMoves = newLegalMovesArray();
@@ -6,10 +6,9 @@ const getKnightMoves = (tiles, row, col) => {
     for (let j = Math.max(col - 2, 0); j <= Math.min(col + 2, 7); j++) {
       const rowDiff = Math.abs(row - i);
       const colDiff = Math.abs(col - j);
-      if (
-        (rowDiff === 2 && colDiff === 1) ||
-        (rowDiff === 1 && colDiff === 2)
-      ) {
+      const piece = tiles[row][col];
+      const pieceAtNewPos = tiles[i][j];
+      if (isTwoAndOne(rowDiff, colDiff) && canTake(piece, pieceAtNewPos)) {
         legalMoves = setLegalMove(legalMoves, i, j);
       }
     }
@@ -17,4 +16,7 @@ const getKnightMoves = (tiles, row, col) => {
   return legalMoves;
 };
 
+const isTwoAndOne = (rowDiff, colDiff) => {
+  return (rowDiff === 2 && colDiff === 1) || (rowDiff === 1 && colDiff === 2);
+};
 export default getKnightMoves;

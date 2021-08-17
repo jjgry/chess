@@ -55,7 +55,7 @@ export const newLegalMovesArray = () => {
   return new Array(8).fill(new Array(8).fill(false));
 };
 
-const canTake = (taker, takee) => {
+export const canTake = (taker, takee) => {
   return isWhitePiece(taker) !== isWhitePiece(takee);
 };
 
