@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getLegalMoves, newLegalMovesArray } from "../utils/moves/legalMoves";
+import { isWhitePiece, isBlackPiece } from "../utils/pieces";
 
 export const gameSlice = createSlice({
   name: "game",
@@ -28,8 +29,8 @@ export const gameSlice = createSlice({
 
       const canSelect =
         pieceAtClick && state.whiteIsNext
-          ? whitePieces.includes(pieceAtClick)
-          : blackPieces.includes(pieceAtClick);
+          ? isWhitePiece(pieceAtClick)
+          : isBlackPiece(pieceAtClick);
       if (selectedRow === -1 && selectedCol === -1 && canSelect) {
         // Set selection
         const newSelected = set2D(state.selected, clickedRow, clickedCol, true);
@@ -88,9 +89,6 @@ export const gameSlice = createSlice({
     },
   },
 });
-
-const whitePieces = ["♙", "♖", "♘", "♗", "♕", "♔"];
-const blackPieces = ["♟︎", "♜", "♞", "♝", "♛", "♚"];
 
 const copy2D = (array) => {
   let result = [];

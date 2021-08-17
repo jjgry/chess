@@ -11,3 +11,9 @@ export const BLACK_BISHOP = "♝";
 export const BLACK_ROOK = "♜";
 export const BLACK_QUEEN = "♛";
 export const BLACK_KING = "♚";
+
+const WHITE_PIECES = ["♙", "♖", "♘", "♗", "♕", "♔"];
+const BLACK_PIECES = ["♟︎", "♜", "♞", "♝", "♛", "♚"];
+
+export const isWhitePiece = (piece) => WHITE_PIECES.includes(piece);
+export const isBlackPiece = (piece) => BLACK_PIECES.includes(piece);
