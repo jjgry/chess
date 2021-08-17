@@ -56,6 +56,9 @@ export const newLegalMovesArray = () => {
 };
 
 export const canTake = (taker, takee) => {
+  if (taker === "" || takee === "") {
+    return false;
+  }
   return isWhitePiece(taker) !== isWhitePiece(takee);
 };
 

@@ -1,5 +1,5 @@
 import * as pieces from "../pieces";
-import { setLegalMove, newLegalMovesArray } from "./legalMoves";
+import { setLegalMove, newLegalMovesArray, canTake } from "./legalMoves";
 
 const getPawnMoves = (tiles, row, col) => {
   let legalMoves = newLegalMovesArray();
@@ -7,17 +7,41 @@ const getPawnMoves = (tiles, row, col) => {
 
   if (piece === pieces.WHITE_PAWN) {
     if (row === 6) {
-      legalMoves = setLegalMove(legalMoves, 4, col);
+      if (tiles[5][col] === "" && tiles[4][col] === "") {
+        legalMoves = setLegalMove(legalMoves, 4, col);
+      }
     }
     if (row !== 0) {
-      legalMoves = setLegalMove(legalMoves, row - 1, col);
+      if (tiles[row - 1][col] === "") {
+        legalMoves = setLegalMove(legalMoves, row - 1, col);
+      }
+    }
+    const couldMakeLeftDiagonalMove = row !== 0 && col !== 0;
+    const couldMakeRightDiagonalMove = row !== 0 && col !== 7;
+    if (couldMakeLeftDiagonalMove && canTake(piece, tiles[row - 1][col - 1])) {
+      legalMoves = setLegalMove(legalMoves, row - 1, col - 1);
+    }
+    if (couldMakeRightDiagonalMove && canTake(piece, tiles[row - 1][col + 1])) {
+      legalMoves = setLegalMove(legalMoves, row - 1, col + 1);
     }
   } else {
     if (row === 1) {
-      legalMoves = setLegalMove(legalMoves, 3, col);
+      if (tiles[2][col] === "" && tiles[3][col] === "") {
+        legalMoves = setLegalMove(legalMoves, 3, col);
+      }
     }
     if (row !== 7) {
-      legalMoves = setLegalMove(legalMoves, row + 1, col);
+      if (tiles[row + 1][col] === "") {
+        legalMoves = setLegalMove(legalMoves, row + 1, col);
+      }
+    }
+    const couldMakeLeftDiagonalMove = row !== 7 && col !== 0;
+    const couldMakeRightDiagonalMove = row !== 7 && col !== 7;
+    if (couldMakeLeftDiagonalMove && canTake(piece, tiles[row + 1][col - 1])) {
+      legalMoves = setLegalMove(legalMoves, row + 1, col - 1);
+    }
+    if (couldMakeRightDiagonalMove && canTake(piece, tiles[row + 1][col + 1])) {
+      legalMoves = setLegalMove(legalMoves, row + 1, col + 1);
     }
   }
   return legalMoves;
