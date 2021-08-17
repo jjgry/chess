@@ -2,7 +2,7 @@ import Tile from "../contaniers/Tile";
 import styles from "./Board.module.css";
 
 const Board = () => {
-  const renderTile = (row, col) => {
+  const renderTile = (row: number, col: number) => {
     return (
       <Tile
         key={8 * row + col}
