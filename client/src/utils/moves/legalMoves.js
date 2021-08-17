@@ -61,7 +61,6 @@ const canTake = (taker, takee) => {
 
 export const rankAndFileSearch = (legalMoves, tiles, row, col) => {
   const piece = tiles[row][col];
-
   // South search
   if (row < 8) {
     for (let i = row + 1; i < 8; i++) {
@@ -76,7 +75,6 @@ export const rankAndFileSearch = (legalMoves, tiles, row, col) => {
       }
     }
   }
-
   // North search
   if (row > 0) {
     for (let i = row - 1; i >= 0; i--) {
@@ -91,7 +89,6 @@ export const rankAndFileSearch = (legalMoves, tiles, row, col) => {
       }
     }
   }
-
   // East search
   if (col < 8) {
     for (let j = col + 1; j < 8; j++) {
@@ -106,7 +103,6 @@ export const rankAndFileSearch = (legalMoves, tiles, row, col) => {
       }
     }
   }
-
   // West search
   if (col > 0) {
     for (let j = col - 1; j >= 0; j--) {
@@ -121,12 +117,96 @@ export const rankAndFileSearch = (legalMoves, tiles, row, col) => {
       }
     }
   }
+  return legalMoves;
+};
 
-  // for (let j = 0; j < 8; j++) {
-  //   if (j !== col) {
-  //     legalMoves = setLegalMove(legalMoves, row, j);
-  //   }
-  // }
+export const diagonalSearch = (legalMoves, tiles, row, col) => {
+  const piece = tiles[row][col];
 
+  // South-east search
+  if (row < 8 && col < 8) {
+    const maxSearchDistance = Math.min(7 - row, 7 - col);
+    for (
+      let searchDistance = 1;
+      searchDistance <= maxSearchDistance;
+      searchDistance++
+    ) {
+      const newRow = row + searchDistance;
+      const newCol = col + searchDistance;
+      const pieceAtNewPos = tiles[newRow][newCol];
+      if (pieceAtNewPos === "") {
+        legalMoves = setLegalMove(legalMoves, newRow, newCol);
+      } else if (canTake(piece, pieceAtNewPos)) {
+        legalMoves = setLegalMove(legalMoves, newRow, newCol);
+        break;
+      } else {
+        break;
+      }
+    }
+  }
+  // North-west search
+  if (row > 0 && col > 0) {
+    const maxSearchDistance = Math.min(row, col);
+    console.log(maxSearchDistance);
+    for (
+      let searchDistance = 1;
+      searchDistance <= maxSearchDistance;
+      searchDistance++
+    ) {
+      const newRow = row - searchDistance;
+      const newCol = col - searchDistance;
+      const pieceAtNewPos = tiles[newRow][newCol];
+      if (pieceAtNewPos === "") {
+        legalMoves = setLegalMove(legalMoves, newRow, newCol);
+      } else if (canTake(piece, pieceAtNewPos)) {
+        legalMoves = setLegalMove(legalMoves, newRow, newCol);
+        break;
+      } else {
+        break;
+      }
+    }
+  }
+  // South-west search
+  if (row < 8 && col > 0) {
+    const maxSearchDistance = Math.min(7 - row, col);
+    for (
+      let searchDistance = 1;
+      searchDistance <= maxSearchDistance;
+      searchDistance++
+    ) {
+      const newRow = row + searchDistance;
+      const newCol = col - searchDistance;
+      const pieceAtNewPos = tiles[newRow][newCol];
+      if (pieceAtNewPos === "") {
+        legalMoves = setLegalMove(legalMoves, newRow, newCol);
+      } else if (canTake(piece, pieceAtNewPos)) {
+        legalMoves = setLegalMove(legalMoves, newRow, newCol);
+        break;
+      } else {
+        break;
+      }
+    }
+  }
+  // North-east search
+  if (row > 0 && col < 8) {
+    const maxSearchDistance = Math.min(row, 7 - col);
+    for (
+      let searchDistance = 1;
+      searchDistance <= maxSearchDistance;
+      searchDistance++
+    ) {
+      const newRow = row - searchDistance;
+      const newCol = col + searchDistance;
+      const pieceAtNewPos = tiles[newRow][newCol];
+      if (pieceAtNewPos === "") {
+        legalMoves = setLegalMove(legalMoves, newRow, newCol);
+      } else if (canTake(piece, pieceAtNewPos)) {
+        legalMoves = setLegalMove(legalMoves, newRow, newCol);
+        break;
+      } else {
+        break;
+      }
+    }
+  }
   return legalMoves;
 };
