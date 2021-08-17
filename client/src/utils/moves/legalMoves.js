@@ -1,6 +1,7 @@
 import * as pieces from "../pieces";
 import * as moves from "./pieces";
 import { copy2D } from "../array2d";
+import { isWhitePiece } from "../pieces";
 
 export const getLegalMoves = (tiles, row, col) => {
   const piece = tiles[row][col];
@@ -52,4 +53,80 @@ export const setLegalMove = (legalMoves, i, j) => {
 
 export const newLegalMovesArray = () => {
   return new Array(8).fill(new Array(8).fill(false));
+};
+
+const canTake = (taker, takee) => {
+  return isWhitePiece(taker) !== isWhitePiece(takee);
+};
+
+export const rankAndFileSearch = (legalMoves, tiles, row, col) => {
+  const piece = tiles[row][col];
+
+  // South search
+  if (row < 8) {
+    for (let i = row + 1; i < 8; i++) {
+      const pieceAtNewPos = tiles[i][col];
+      if (pieceAtNewPos === "") {
+        legalMoves = setLegalMove(legalMoves, i, col);
+      } else if (canTake(piece, pieceAtNewPos)) {
+        legalMoves = setLegalMove(legalMoves, i, col);
+        break;
+      } else {
+        break;
+      }
+    }
+  }
+
+  // North search
+  if (row > 0) {
+    for (let i = row - 1; i >= 0; i--) {
+      const pieceAtNewPos = tiles[i][col];
+      if (pieceAtNewPos === "") {
+        legalMoves = setLegalMove(legalMoves, i, col);
+      } else if (canTake(piece, pieceAtNewPos)) {
+        legalMoves = setLegalMove(legalMoves, i, col);
+        break;
+      } else {
+        break;
+      }
+    }
+  }
+
+  // East search
+  if (col < 8) {
+    for (let j = col + 1; j < 8; j++) {
+      const pieceAtNewPos = tiles[row][j];
+      if (pieceAtNewPos === "") {
+        legalMoves = setLegalMove(legalMoves, row, j);
+      } else if (canTake(piece, pieceAtNewPos)) {
+        legalMoves = setLegalMove(legalMoves, row, j);
+        break;
+      } else {
+        break;
+      }
+    }
+  }
+
+  // West search
+  if (col > 0) {
+    for (let j = col - 1; j >= 0; j--) {
+      const pieceAtNewPos = tiles[row][j];
+      if (pieceAtNewPos === "") {
+        legalMoves = setLegalMove(legalMoves, row, j);
+      } else if (canTake(piece, pieceAtNewPos)) {
+        legalMoves = setLegalMove(legalMoves, row, j);
+        break;
+      } else {
+        break;
+      }
+    }
+  }
+
+  // for (let j = 0; j < 8; j++) {
+  //   if (j !== col) {
+  //     legalMoves = setLegalMove(legalMoves, row, j);
+  //   }
+  // }
+
+  return legalMoves;
 };
