@@ -38,7 +38,7 @@ const Page = () => (
       <ul>
         <li>Check out this awesome game!</li>
         <li>
-          <img href="./" alt="advert.jpg" />
+          <img src="./" alt="advert.jpg" />
           <p>
             you won't <i>believe</i> this one trick to longer life!
           </p>

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   getLegalMoves,
   newLegalMovesArray,
@@ -6,27 +6,41 @@ import {
 } from "../utils/moves/legalMoves";
 import { isWhitePiece, isBlackPiece } from "../utils/pieces";
 import { copy2D, set2D } from "../utils/array2d";
+import { RootState } from ".";
+
+interface GameState {
+  tiles: string[][];
+  selected: boolean[][];
+  selection: number[];
+  whiteIsNext: boolean;
+  highlightedMoves: boolean[][];
+}
+
+const initialState: GameState = {
+  tiles: [
+    ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"],
+    ["♟︎", "♟︎", "♟︎", "♟︎", "♟︎", "♟︎", "♟︎", "♟︎"],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"],
+    ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"],
+  ],
+  selected: new Array(8).fill(new Array(8).fill(false)),
+  selection: [-1, -1],
+  whiteIsNext: true,
+  highlightedMoves: newLegalMovesArray(),
+};
 
 export const gameSlice = createSlice({
   name: "game",
-  initialState: {
-    tiles: [
-      ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"],
-      ["♟︎", "♟︎", "♟︎", "♟︎", "♟︎", "♟︎", "♟︎", "♟︎"],
-      ["", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", ""],
-      ["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"],
-      ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"],
-    ],
-    selected: new Array(8).fill(new Array(8).fill(false)),
-    selection: [-1, -1],
-    whiteIsNext: true,
-    highlightedMoves: newLegalMovesArray(),
-  },
+  initialState: initialState,
   reducers: {
-    clickUnselected: (state, action) => {
+    clickUnselected: (
+      state,
+      action: PayloadAction<{ row: number; col: number }>
+    ) => {
       const clickedRow = action.payload.row;
       const clickedCol = action.payload.col;
       const pieceAtClick = state.tiles[clickedRow][clickedCol];
@@ -103,12 +117,16 @@ export const { clickUnselected, clickSelected } = gameSlice.actions;
 
 export default gameSlice.reducer;
 
-export const selectTile = (state, row, col) => state.game.tiles[row][col];
+export const selectTile = (state: RootState, row: number, col: number) =>
+  state.game.tiles[row][col];
 
-export const selectSelected = (state, row, col) =>
+export const selectSelected = (state: RootState, row: number, col: number) =>
   state.game.selected[row][col];
 
-export const selectWhiteIsNext = (state) => state.game.whiteIsNext;
+export const selectWhiteIsNext = (state: RootState) => state.game.whiteIsNext;
 
-export const selectHighlightedStatus = (state, row, col) =>
-  state.game.highlightedMoves[row][col];
+export const selectHighlightedStatus = (
+  state: RootState,
+  row: number,
+  col: number
+) => state.game.highlightedMoves[row][col];
