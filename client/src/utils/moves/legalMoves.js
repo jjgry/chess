@@ -38,6 +38,10 @@ export const getLegalMoves = (tiles, row, col) => {
   return legalMoves;
 };
 
+export const isALegalMove = (legalMoves, row, col) => {
+  return legalMoves[row][col];
+};
+
 export const setLegalMove = (legalMoves, i, j) => {
   let arrayCopy = copy2D(legalMoves);
   let newRow = arrayCopy[i];

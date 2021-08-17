@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getLegalMoves, newLegalMovesArray } from "../utils/moves/legalMoves";
+import {
+  getLegalMoves,
+  newLegalMovesArray,
+  isALegalMove,
+} from "../utils/moves/legalMoves";
 import { isWhitePiece, isBlackPiece } from "../utils/pieces";
+import { copy2D, set2D } from "../utils/array2d";
 
 export const gameSlice = createSlice({
   name: "game",
@@ -43,7 +48,12 @@ export const gameSlice = createSlice({
         );
       } else if (selectedRow !== -1 && selectedCol !== -1) {
         const pieceAtSelection = state.tiles[selectedRow][selectedCol];
-        if (pieceAtSelection !== "") {
+        const isLegal = isALegalMove(
+          state.highlightedMoves,
+          clickedRow,
+          clickedCol
+        );
+        if (pieceAtSelection !== "" && isLegal) {
           // Move piece
           let newBoard = set2D(
             state.tiles,
@@ -84,27 +94,11 @@ export const gameSlice = createSlice({
         );
         state.selected = newSelected;
         state.selection = [-1, -1];
-        state.highlightedMoves = new Array(8).fill(new Array(8).fill(false));
+        state.highlightedMoves = newLegalMovesArray();
       }
     },
   },
 });
-
-const copy2D = (array) => {
-  let result = [];
-  array.forEach((subArray) => {
-    result.push(subArray.slice());
-  });
-  return result;
-};
-
-const set2D = (array, row, col, value) => {
-  let arrayCopy = copy2D(array);
-  let newRow = arrayCopy[row];
-  newRow.splice(col, 1, value);
-  arrayCopy.splice(row, 1, newRow);
-  return arrayCopy;
-};
 
 // Action creators are generated for each case reducer function
 export const { clickUnselected, clickSelected } = gameSlice.actions;
