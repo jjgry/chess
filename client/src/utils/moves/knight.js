@@ -12,7 +12,6 @@ const getKnightMoves = (tiles, row, col) => {
         isTwoAndOne(rowDiff, colDiff) &&
         (canTake(piece, pieceAtNewPos) || pieceAtNewPos === "")
       ) {
-        console.log(isTwoAndOne(rowDiff, colDiff));
         legalMoves = setLegalMove(legalMoves, i, j);
       }
     }
