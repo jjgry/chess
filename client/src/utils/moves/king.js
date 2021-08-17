@@ -9,7 +9,7 @@ const getKingMoves = (tiles, row, col) => {
       }
       const piece = tiles[row][col];
       const pieceAtNewPos = tiles[i][j];
-      if (canTake(piece, pieceAtNewPos)) {
+      if (canTake(piece, pieceAtNewPos) || pieceAtNewPos === "") {
         legalMoves = setLegalMove(legalMoves, i, j);
       }
     }

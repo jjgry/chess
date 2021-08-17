@@ -8,7 +8,11 @@ const getKnightMoves = (tiles, row, col) => {
       const colDiff = Math.abs(col - j);
       const piece = tiles[row][col];
       const pieceAtNewPos = tiles[i][j];
-      if (isTwoAndOne(rowDiff, colDiff) && canTake(piece, pieceAtNewPos)) {
+      if (
+        isTwoAndOne(rowDiff, colDiff) &&
+        (canTake(piece, pieceAtNewPos) || pieceAtNewPos === "")
+      ) {
+        console.log(isTwoAndOne(rowDiff, colDiff));
         legalMoves = setLegalMove(legalMoves, i, j);
       }
     }
